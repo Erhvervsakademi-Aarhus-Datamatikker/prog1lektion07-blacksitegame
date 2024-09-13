@@ -1,16 +1,41 @@
 package opgave02;
 
+import jdk.swing.interop.SwingInterOpUtils;
+
+import javax.xml.stream.events.StartDocument;
+import java.sql.SQLOutput;
+
 public class Opgave02 {
     public static void main(String[] args) {
 
         char[] characterArray = getCharacterArray();
 
-        int [] resultA = OpgaveA(characterArray);
+        int[] resultA = OpgaveA(characterArray);
 
         System.out.println("Opgave A: ");
-        for (int i = 0; i<resultA.length;i++){
+        for (int i = 0; i < resultA.length; i++) {
             System.out.println(resultA[i]);
         }
+        System.out.println();
+
+        System.out.print("Opgave B: number of words: ");
+        int numberOfWords = OpgaveBNumberOfWords(characterArray);
+        System.out.println(numberOfWords);
+        System.out.println();
+
+        System.out.print("Opgave B: Number of dots: ");
+        int numberOfDots = OpgaveBNumberOfDots(characterArray);
+        System.out.println(numberOfDots);
+        System.out.println();
+
+        System.out.print("Opgave B: Number of long words: ");
+        int numberOfLongWords = OpgaveBNumberOfLongWords(characterArray);
+        System.out.println(numberOfLongWords);
+        System.out.println();
+
+        System.out.print("Opgave B: The lix number is: ");
+        System.out.println(numberOfWords/numberOfDots+numberOfLongWords*100/numberOfWords);
+
     }
 
     private static char[] getCharacterArray() {
@@ -37,20 +62,70 @@ public class Opgave02 {
                 "jeg snart ked af det! og så lagde hun sig igen.").toCharArray();
     }
 
-    public static int [] OpgaveA (char[] text){
+    public static int[] OpgaveA(char[] text) {
 
-        char[] vocalsUpperCase = {'A','E','I','O','U','Y','Æ','Ø','Å'};
-        char[] vocalsLowerCase = {'a','e','i','o','u','y','æ','ø','å'};
-        int [] result = new int[vocalsUpperCase.length];
+        char[] vocalsUpperCase = {'A','E', 'I', 'O', 'U', 'Y', 'Æ', 'Ø', 'Å'};
+        char[] vocalsLowerCase = {'a', 'e', 'i', 'o', 'u', 'y', 'æ', 'ø', 'å'};
+        int[] result = new int[vocalsUpperCase.length];
 
-        for (int i = 0; i < text.length; i++){
-            for (int j = 0; j < vocalsLowerCase.length; j++){
-                if (text[i]==vocalsLowerCase[j] || text[i]==vocalsUpperCase[j]){
+        for (int i = 0; i < text.length; i++) {
+            for (int j = 0; j < vocalsLowerCase.length; j++) {
+                if (text[i] == vocalsLowerCase[j] || text[i] == vocalsUpperCase[j]) {
                     result[j]++;
                 }
             }
         }
 
-         return result;
+        return result;
+    }
+
+    public static int OpgaveBNumberOfWords(char[] text) {
+        int numberOfWords = 0;
+        char [] spaces = {' '};
+        for (int i = 0; i < text.length; i++){
+            if(text[i]==spaces[0]){
+                numberOfWords++;
+            }
+        }
+
+
+            return numberOfWords+1;
+    }
+
+    public static int OpgaveBNumberOfDots(char[] text) {
+        int numberOfDots = 0;
+        char [] spaces = {'.'};
+        for (int i = 0; i < text.length; i++){
+            if(text[i]==spaces[0]){
+                numberOfDots++;
+            }
+        }
+
+
+        return numberOfDots;
+    }
+
+    public static int OpgaveBNumberOfLongWords(char[] text) {
+        int numberOfLongWords = 0;
+        int letters = 0;
+        char[] spaces = {' '};
+        for (int i = 0; i < text.length; i++){
+            if (text[i]==spaces[0] && letters>=6){
+                numberOfLongWords++;
+                letters = 0;
+            }
+
+            else if (text[i]==spaces[0]){
+                letters = 0;
+            }
+
+            else {
+                letters++;
+            }
+        }
+
+
+
+        return numberOfLongWords;
     }
 }
