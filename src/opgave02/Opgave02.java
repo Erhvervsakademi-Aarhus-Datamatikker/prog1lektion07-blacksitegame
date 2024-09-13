@@ -2,7 +2,15 @@ package opgave02;
 
 public class Opgave02 {
     public static void main(String[] args) {
+
         char[] characterArray = getCharacterArray();
+
+        int [] resultA = OpgaveA(characterArray);
+
+        System.out.println("Opgave A: ");
+        for (int i = 0; i<resultA.length;i++){
+            System.out.println(resultA[i]);
+        }
     }
 
     private static char[] getCharacterArray() {
@@ -27,5 +35,22 @@ public class Opgave02 {
                 "men der har jeg aldrig været! – I er her dog vel alle sammen! – og så rejste hun sig" +
                 " op, nej, jeg har ikke alle! det største æg ligger der endnu; hvor længe skal det vare! nu er " +
                 "jeg snart ked af det! og så lagde hun sig igen.").toCharArray();
+    }
+
+    public static int [] OpgaveA (char[] text){
+
+        char[] vocalsUpperCase = {'A','E','I','O','U','Y','Æ','Ø','Å'};
+        char[] vocalsLowerCase = {'a','e','i','o','u','y','æ','ø','å'};
+        int [] result = new int[vocalsUpperCase.length];
+
+        for (int i = 0; i < text.length; i++){
+            for (int j = 0; j < vocalsLowerCase.length; j++){
+                if (text[i]==vocalsLowerCase[j] || text[i]==vocalsUpperCase[j]){
+                    result[j]++;
+                }
+            }
+        }
+
+         return result;
     }
 }
